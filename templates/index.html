@@ -11,7 +11,13 @@
             <nav>
                 <a href="/">Home</a>
                 <a href="/about">About</a>
-                <a href="/post/create">New Post</a>
+                {% if current_user.is_authenticated %}
+                    <a href="/post/create">New Post</a>
+                    <a href="/logout">Logout ({{ current_user.username }})</a>
+                {% else %}
+                    <a href="/login">Login</a>
+                    <a href="/register">Register</a>
+                {% endif %}
             </nav>
         </div>
     </header>
@@ -19,17 +25,27 @@
     <main class="container">
         <h2>Recent Posts</h2>
         
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
         {% if posts %}
             {% for post in posts %}
                 <div class="post">
                     <h3 class="post-title">{{ post.title }}</h3>
-                    <div class="post-meta">{{ post.created_at.strftime('%Y-%m-%d') }}</div>
+                    <div class="post-meta">
+                        Posted by {{ post.author.username }} on {{ post.created_at.strftime('%Y-%m-%d') }}
+                    </div>
                     <p>{{ post.content[:150] }}...</p>
                     <a href="/post/{{ post.id }}" class="btn">Read More</a>
                 </div>
             {% endfor %}
         {% else %}
-            <p>No posts yet. <a href="/post/create">Create one</a>.</p>
+            <p>No posts yet.</p>
         {% endif %}
     </main>
 

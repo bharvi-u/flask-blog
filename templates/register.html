@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register - My Blog</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>My Blog</h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/about">About</a>
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2>Register</h2>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form method="POST">
+            <div class="form-group">
+                <label>Username:</label>
+                <input type="text" name="username" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" name="email" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Password:</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Confirm Password:</label>
+                <input type="password" name="confirm_password" class="form-control" required>
+            </div>
+            
+            <button type="submit" class="btn">Register</button>
+            <a href="/login" class="btn btn-secondary">Already have an account?</a>
+        </form>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>My Blog &copy; 2026</p>
+        </div>
+    </footer>
+</body>
+</html>
