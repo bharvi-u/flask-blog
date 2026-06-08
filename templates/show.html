@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ post.title }} - My Blog</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>My Blog</h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/about">About</a>
+                <a href="/post/create">New Post</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="post">
+            <h2>{{ post.title }}</h2>
+            <div class="post-meta">{{ post.created_at.strftime('%Y-%m-%d %H:%M') }}</div>
+            <p>{{ post.content }}</p>
+        </div>
+        
+        <p>
+            <a href="/post/{{ post.id }}/edit" class="btn">Edit</a>
+            <a href="/post/{{ post.id }}/delete" class="btn btn-danger" onclick="return confirm('Delete this post?')">Delete</a>
+            <a href="/" class="btn btn-secondary">Back to Home</a>
+        </p>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>My Blog &copy; 2026</p>
+        </div>
+    </footer>
+</body>
+</html>
